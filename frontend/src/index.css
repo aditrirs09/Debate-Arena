@@ -1,0 +1,358 @@
+:root {
+  --ink: #15161a;
+  --ink-raised: #1c1e24;
+  --parchment: #ede9df;
+  --parchment-dim: #a8a59c;
+  --side-a: #e0a030;
+  --side-a-dim: #7a5b26;
+  --side-b: #3fb6c9;
+  --side-b-dim: #285b64;
+  --judge: #8c7fd6;
+  --line: #2b2d34;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: "Inter", -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.arena {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+.arena-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.arena-header h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 40px;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.arena-header p {
+  color: var(--parchment-dim);
+  margin: 0;
+  font-size: 15px;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* --- Setup form --- */
+.setup {
+  background: var(--ink-raised);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 40px;
+}
+
+.setup label {
+  display: block;
+  font-size: 13px;
+  color: var(--parchment-dim);
+  margin-bottom: 6px;
+  margin-top: 18px;
+}
+
+.setup label:first-child {
+  margin-top: 0;
+}
+
+.setup input[type="text"],
+.setup select {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  color: var(--parchment);
+  padding: 11px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.setup input[type="text"]:focus,
+.setup select:focus {
+  outline: 2px solid var(--judge);
+  outline-offset: 1px;
+}
+
+.side-pickers {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: end;
+}
+
+.side-pickers .vs-glyph {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  color: var(--parchment-dim);
+  font-size: 15px;
+  padding-bottom: 12px;
+}
+
+.side-a-label {
+  color: var(--side-a);
+}
+.side-b-label {
+  color: var(--side-b);
+}
+
+.start-btn {
+  margin-top: 24px;
+  width: 100%;
+  background: var(--parchment);
+  color: var(--ink);
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.start-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.start-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Round indicator --- */
+.round-strip {
+  text-align: center;
+  color: var(--parchment-dim);
+  font-size: 13px;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+
+/* --- Tug-of-war scorebar --- */
+.tug {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--side-b-dim);
+  overflow: hidden;
+  margin-bottom: 32px;
+  display: flex;
+}
+
+.tug-fill {
+  background: var(--side-a);
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --- Duel columns --- */
+.duel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .duel {
+    grid-template-columns: 1fr;
+  }
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.side-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.side-name {
+  font-family: "Fraunces", serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.side-a .side-name {
+  color: var(--side-a);
+}
+.side-b .side-name {
+  color: var(--side-b);
+}
+
+.side-stance {
+  font-size: 12px;
+  color: var(--parchment-dim);
+}
+
+.turn-card {
+  background: var(--ink-raised);
+  border: 1px solid var(--line);
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  animation: rise 0.35s ease;
+}
+
+.side-a .turn-card {
+  border-left-color: var(--side-a);
+}
+.side-b .turn-card {
+  border-left-color: var(--side-b);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.turn-round-tag {
+  font-size: 11px;
+  color: var(--parchment-dim);
+  margin-bottom: 6px;
+}
+
+/* --- Judge scorecard --- */
+.judge-card {
+  margin: 28px 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(140, 127, 214, 0.08), transparent);
+}
+
+.judge-title {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  color: var(--judge);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.judge-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  font-size: 13px;
+}
+
+.judge-scores .axis-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--parchment-dim);
+  padding: 3px 0;
+}
+
+.judge-scores .axis-row span:last-child {
+  color: var(--parchment);
+  font-weight: 500;
+}
+
+.judge-note {
+  grid-column: 1 / -1;
+  color: var(--parchment-dim);
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* --- Final verdict --- */
+.verdict {
+  text-align: center;
+  margin-top: 40px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--ink-raised);
+}
+
+.verdict-label {
+  color: var(--parchment-dim);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.verdict-winner {
+  font-family: "Fraunces", serif;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.thinking {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--parchment-dim);
+  font-size: 13px;
+  padding: 8px 4px;
+}
+
+.thinking span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.1s infinite ease-in-out;
+}
+
+.thinking span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.thinking span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.error-banner {
+  background: #3a1f22;
+  border: 1px solid #6b3438;
+  color: #f0c8ca;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
