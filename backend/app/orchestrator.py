@@ -28,15 +28,15 @@ async def run_debate(
         debater_id="debater_a",
         persona_id=persona_a_id,
         stance="FOR the motion",
-        model=os.getenv("DEBATER_A_MODEL", "gemini-2.0-flash"),
+        model=os.getenv("DEBATER_A_MODEL", "gemini-3.8-flash"),
     )
     debater_b = Debater(
         debater_id="debater_b",
         persona_id=persona_b_id,
         stance="AGAINST the motion",
-        model=os.getenv("DEBATER_B_MODEL", "gemini-2.0-flash"),
+        model=os.getenv("DEBATER_B_MODEL", "gemini-3.8-flash"),
     )
-    judge = Judge(model=os.getenv("JUDGE_MODEL", "gemini-2.0-flash"))
+    judge = Judge(model=os.getenv("JUDGE_MODEL", "gemini-3.8-flash"))
 
     full_transcript: list[dict] = []
     tally = {"debater_a": {"logic": 0, "evidence": 0, "rebuttal": 0}, "debater_b": {"logic": 0, "evidence": 0, "rebuttal": 0}}
